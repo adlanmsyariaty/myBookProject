@@ -17,7 +17,7 @@ const MySwal = withReactContent(Swal);
 function BookCard({ title, authors, averageRating, imageUrl, page }) {
   async function addBook() {
     try {
-      await axios.post("http://localhost:3001/books", {
+      await axios.post("https://my-book-project.herokuapp.com/books", {
         title,
         authors,
         averageRating,
