@@ -8,7 +8,7 @@ function Wishlist() {
   useEffect(() => {
     async function fetchBookWishlist() {
       try {
-        const response = await axios.get("http://localhost:3001/books")
+        const response = await axios.get("https://my-book-project.herokuapp.com/books")
         setSavedBooks(response.data)
       } catch (error) {
         console.log(error)
