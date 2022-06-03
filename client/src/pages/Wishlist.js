@@ -22,7 +22,7 @@ function Wishlist() {
       <h1 className="pt-[100px] text-3xl text-white mb-[30px] font-bold">BOOK WISHLIST</h1>
       <div className="flex flex-wrap justify-center items-center">
         {savedBooks.length > 0 && savedBooks.map((book) => (
-          <BookCard key={book._id} title={book.title} authors={book.authors} averageRating={book.rating} imageUrl={book.imageUrl}/>
+          <BookCard key={book._id} title={book.title} authors={book.authors} averageRating={book.rating} imageUrl={book.imageUrl} page="wishlist"/>
         ))}
       </div>
     </>

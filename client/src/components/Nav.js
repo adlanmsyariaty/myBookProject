@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Nav() {
   return (
-    <Navbar className="w-screen-xl mx-5">
+    <Navbar className="w-screen-xl mx-5 bg-green-100">
       <div className="container flex justify-between items-center text-blue-grey-900">
         <Link
           to="/"

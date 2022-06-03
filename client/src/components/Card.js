@@ -14,7 +14,7 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-function BookCard({ title, authors, averageRating, imageUrl }) {
+function BookCard({ title, authors, averageRating, imageUrl, page }) {
   async function addBook() {
     try {
       await axios.post("http://localhost:3001/books", {
@@ -25,8 +25,8 @@ function BookCard({ title, authors, averageRating, imageUrl }) {
       });
       await MySwal.fire({
         title: <strong>Success to add book</strong>,
-        icon: 'success'
-      })
+        icon: "success",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +59,7 @@ function BookCard({ title, authors, averageRating, imageUrl }) {
             {authors ? (authors.join(", ").length > 150 ? "..." : "") : ""}
           </Typography>
         </CardBody>
-        <CardFooter divider className="flex items-center justify-between py-3">
+        <CardFooter divider className={`flex items-center py-3 ` + (page === "wishlist" ? 'justify-center' : 'justify-between')}>
           <Typography variant="h5" className="text-yellow-400">
             <Rater
               rating={averageRating ? averageRating : 0}
@@ -68,14 +68,16 @@ function BookCard({ title, authors, averageRating, imageUrl }) {
             />
           </Typography>
           <Typography variant="small" color="grey" className="flex gap-1">
-            <Button
-              variant="gradient"
-              size="sm"
-              color="blue"
-              onClick={() => addBook()}
-            >
-              Add to Wishlist
-            </Button>
+            {page !== "wishlist" && (
+              <Button
+                variant="gradient"
+                size="sm"
+                color="blue"
+                onClick={() => addBook()}
+              >
+                Add to Wishlist
+              </Button>
+            )}
           </Typography>
         </CardFooter>
       </Card>
