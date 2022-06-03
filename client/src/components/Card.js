@@ -4,12 +4,34 @@ import {
   CardBody,
   CardFooter,
   Typography,
-  Button
+  Button,
 } from "@material-tailwind/react";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
+import axios from "axios";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-function BookCard({ book }) {
+const MySwal = withReactContent(Swal);
+
+function BookCard({ title, authors, averageRating, imageUrl }) {
+  async function addBook() {
+    try {
+      await axios.post("http://localhost:3001/books", {
+        title,
+        authors,
+        averageRating,
+        imageUrl,
+      });
+      await MySwal.fire({
+        title: <strong>Success to add book</strong>,
+        icon: 'success'
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="m-5">
       <Card className="w-[300px] mt-6">
@@ -18,37 +40,40 @@ function BookCard({ book }) {
           className="relative h-[280px] w-[210px] mx-[45px]"
         >
           <img
-            src={book.volumeInfo.imageLinks?.thumbnail}
+            src={imageUrl ? imageUrl : ""}
             alt="img-blur-shadow"
             className="w-full h-full"
           />
         </CardHeader>
         <CardBody className="text-center h-[270px]">
           <Typography variant="h6" className="mb-2">
-            {book.volumeInfo.title}
+            {title}
           </Typography>
           <Typography className="text-left font-bold">Authors :</Typography>
           <Typography className="text-left">
-            {book.volumeInfo.authors
-              ? book.volumeInfo.authors.join(", ")
+            {authors
+              ? authors.join(", ").length > 150
+                ? authors.join(", ").slice(0, 150)
+                : authors.join(", ")
               : "Unknown"}
+            {authors ? (authors.join(", ").length > 150 ? "..." : "") : ""}
           </Typography>
         </CardBody>
         <CardFooter divider className="flex items-center justify-between py-3">
           <Typography variant="h5" className="text-yellow-400">
             <Rater
-              rating={
-                book.volumeInfo.averageRating
-                  ? book.volumeInfo.averageRating
-                  : 0
-              }
+              rating={averageRating ? averageRating : 0}
               total={5}
               interactive={false}
-              color="yellow"
             />
           </Typography>
           <Typography variant="small" color="grey" className="flex gap-1">
-            <Button variant="gradient" size="sm" color="blue">
+            <Button
+              variant="gradient"
+              size="sm"
+              color="blue"
+              onClick={() => addBook()}
+            >
               Add to Wishlist
             </Button>
           </Typography>

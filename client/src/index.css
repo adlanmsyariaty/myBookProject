@@ -19,3 +19,7 @@ code {
 .react-rater-star.is-disabled.is-active {
   color: #fde047
 }
+
+.react-rater-star.is-disabled.is-active-half::before {
+  color: #fde047
+}

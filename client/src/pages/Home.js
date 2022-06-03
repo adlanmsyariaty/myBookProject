@@ -6,7 +6,7 @@ import { useDebounce } from "../hooks/useDebounce";
 function Home() {
   const [books, setBooks] = useState([]);
   const [book, setBook] = useState("");
-  const [debouncedBook] = useDebounce(book, 500);
+  const [debouncedBook] = useDebounce(book, 1000);
 
   useEffect(() => {
     async function fetchBook() {
@@ -30,7 +30,7 @@ function Home() {
 
   return (
     <>
-      <div className="min-h-[calc(100vh-90px)] flex bg-[url('https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg')] bg-contain bg-center justify-center items-center">
+      <div className="min-h-[100vh] flex bg-[url('https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg')] bg-contain bg-center justify-center items-center">
         <div className="w-[30%] text-left">
           <label className="text-white font-bold">Find Your Book :</label>
           <div className="mt-3 w-[100%]">
@@ -48,7 +48,7 @@ function Home() {
       {books.length > 0 && (
         <div className="flex p-5 flex-wrap justify-center items-center">
           {books.map((book) => (
-            <BookCard key={book.id} book={book} />
+            <BookCard key={book.id} title={book.volumeInfo.title} authors={book.volumeInfo.authors} averageRating={book.volumeInfo.averageRating} imageUrl={book.volumeInfo.imageLinks?.thumbnail}/>
           ))}
         </div>
       )}

@@ -7,7 +7,7 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div className="App">
-      <div className="pt-[10px] pb-[10px] flex justify-center">
+      <div className="pt-[10px] pb-[10px] flex justify-center fixed w-[100%] top-0 z-10">
         <Nav />
       </div>
       <Routes>
