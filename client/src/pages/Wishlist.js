@@ -1,25 +1,18 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import BookCard from "../components/Card";
+import { loadBooks } from "../store/actions/bookAction";
 
 function Wishlist() {
-  const [savedBooks, setSavedBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [ isLoading, setIsLoading ] = useState(true);
+  const { books } = useSelector((state) => state.book)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    async function fetchBookWishlist() {
-      try {
-        const response = await axios.get(
-          "https://my-book-project.herokuapp.com/books"
-        );
-        setSavedBooks(response.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchBookWishlist();
-  }, []);
+    dispatch(loadBooks())
+      .then(() => setIsLoading(false))
+  }, [dispatch]);
 
   if (isLoading) {
     return (
@@ -50,8 +43,8 @@ function Wishlist() {
         BOOK WISHLIST
       </h1>
       <div className="flex flex-wrap justify-center items-center">
-        {savedBooks.length > 0 &&
-          savedBooks.map((book) => (
+        {books.length > 0 &&
+          books.map((book) => (
             <BookCard
               key={book._id}
               title={book.title}
@@ -62,7 +55,7 @@ function Wishlist() {
             />
           ))}
 
-        {savedBooks.length === 0 && (
+        {books.length === 0 && (
           <div className="flex flex-wrap justify-center items-center min-h-[calc(100vh-170px)]">
             <h1 className="text-3xl text-white">Book Not Found</h1>
           </div>

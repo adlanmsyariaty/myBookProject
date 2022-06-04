@@ -8,28 +8,23 @@ import {
 } from "@material-tailwind/react";
 import Rater from "react-rater";
 import "react-rater/lib/react-rater.css";
-import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useDispatch } from "react-redux";
+import { addBook } from "../store/actions/bookAction";
 
 const MySwal = withReactContent(Swal);
 
 function BookCard({ title, authors, averageRating, imageUrl, page }) {
-  async function addBook() {
-    try {
-      await axios.post("https://my-book-project.herokuapp.com/books", {
-        title,
-        authors,
-        averageRating,
-        imageUrl,
-      });
-      await MySwal.fire({
+  const dispatch = useDispatch();
+
+  async function saveBook() {
+    dispatch(addBook({ title, authors, averageRating, imageUrl })).then(() => {
+      MySwal.fire({
         title: <strong>Success to add book</strong>,
         icon: "success",
       });
-    } catch (error) {
-      console.log(error);
-    }
+    });
   }
 
   return (
@@ -60,7 +55,13 @@ function BookCard({ title, authors, averageRating, imageUrl, page }) {
             {authors ? (authors.join(", ").length > 150 ? "..." : "") : ""}
           </Typography>
         </CardBody>
-        <CardFooter divider className={`flex items-center py-3 ` + (page === "wishlist" ? 'justify-center' : 'justify-between')}>
+        <CardFooter
+          divider
+          className={
+            `flex items-center py-3 ` +
+            (page === "wishlist" ? "justify-center" : "justify-between")
+          }
+        >
           <Typography variant="h5" className="text-yellow-400">
             <Rater
               rating={averageRating ? averageRating : 0}
@@ -74,7 +75,7 @@ function BookCard({ title, authors, averageRating, imageUrl, page }) {
                 variant="gradient"
                 size="sm"
                 color="blue"
-                onClick={() => addBook()}
+                onClick={() => saveBook()}
               >
                 Wishlist
               </Button>
