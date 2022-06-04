@@ -16,7 +16,7 @@ function Home() {
         const response = await axios.get(
           `https://www.googleapis.com/books/v1/volumes?q=${debouncedBook}&startIndex=${page}&maxResults=40&key=AIzaSyCImmNj-lVDLLQj81L8ZChr_sHwxfzsDC4`
         );
-        setTotalItems(response.data.totalItems)
+        setTotalItems(response.data.totalItems);
         setBooks(response.data.items);
       } catch (error) {
         console.log(error);
@@ -47,8 +47,8 @@ function Home() {
 
   return (
     <>
-      <div className="bg-gradient-to-b from-transparent to-[#737373] absolute mt-[calc(100vh-320px)] h-60 w-[100%]" />
-      <div className="min-h-[calc(100vh-80px)] flex bg-[url('https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg')] bg-contain bg-center justify-center items-center">
+      <div className="bg-gradient-to-b from-transparent to-[#222] absolute mt-[calc(100vh-270px)] h-60 w-[100%]" />
+      <div className="min-h-[calc(100vh-30px)] flex bg-[url('https://i.pinimg.com/originals/67/18/22/671822c2f63dd5f65d8fd15c9710420b.jpg')] bg-contain bg-center justify-center items-center">
         <div className="w-[30%] text-left">
           <label className="text-white font-bold text-3xl">
             Find Your Book :
@@ -66,16 +66,25 @@ function Home() {
         </div>
       </div>
       {books.length > 0 && (
-        <div className="flex justify-around h-[50px] items-center mt-[20px]">
-          <div className="bg-red-500 p-2 rounded-lg w-[100px] cursor-pointer">
+        <div className="flex justify-between h-[50px] items-center mt-[20px] mx-10">
+          <div className="bg-green-500 p-2 rounded-lg w-[120px] cursor-pointer flex flex-wrap items-center gap-2 justify-center">
+            <div className="text-white items-center flex">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </div>
             <p className="text-white font-bold" onClick={() => pageDecrement()}>
               Previous
             </p>
           </div>
-          <div className="bg-red-500 p-2 rounded-lg w-[100px] cursor-pointer">
+          <div>
+            <h1 className="text-green-400 text-4xl font-bold">BOOK LIST</h1>
+          </div>
+          <div className="bg-green-500 p-2 rounded-lg w-[120px] cursor-pointer flex flex-wrap items-center gap-2 justify-center">
             <p className="text-white font-bold" onClick={() => pageIncrement()}>
               Next
             </p>
+            <div className="text-white items-center flex">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </div>
           </div>
         </div>
       )}

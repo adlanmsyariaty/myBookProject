@@ -34,10 +34,10 @@ function BookCard({ title, authors, averageRating, imageUrl, page }) {
 
   return (
     <div className="m-5">
-      <Card className="w-[300px] mt-6">
+      <Card className="w-[260px] mt-6">
         <CardHeader
           color="blue"
-          className="relative h-[280px] w-[210px] mx-[45px]"
+          className="relative h-[280px] w-[180px] mx-[40px]"
         >
           <img
             src={imageUrl ? imageUrl : ""}
@@ -47,13 +47,14 @@ function BookCard({ title, authors, averageRating, imageUrl, page }) {
         </CardHeader>
         <CardBody className="text-center h-[270px]">
           <Typography variant="h6" className="mb-2">
-            {title}
+            {title.slice(0, 100)}
+            {title.length > 100 ? "..." : ""}
           </Typography>
           <Typography className="text-left font-bold">Authors :</Typography>
           <Typography className="text-left">
             {authors
-              ? authors.join(", ").length > 150
-                ? authors.join(", ").slice(0, 150)
+              ? authors.join(", ").length > 140
+                ? authors.join(", ").slice(0, 140)
                 : authors.join(", ")
               : "Unknown"}
             {authors ? (authors.join(", ").length > 150 ? "..." : "") : ""}
@@ -75,7 +76,7 @@ function BookCard({ title, authors, averageRating, imageUrl, page }) {
                 color="blue"
                 onClick={() => addBook()}
               >
-                Add to Wishlist
+                Wishlist
               </Button>
             )}
           </Typography>
