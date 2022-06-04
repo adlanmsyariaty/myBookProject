@@ -9,7 +9,7 @@ class Book {
 
   static async showAllBook() {
     try {
-      const books = await this.books().collection("books").find().toArray();
+      const books = await this.books().collection("books").find().sort({_id: -1}).toArray();
       return books;
     } catch (error) {
       throw error;
