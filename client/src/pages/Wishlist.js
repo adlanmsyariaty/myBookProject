@@ -10,8 +10,7 @@ function Wishlist() {
     async function fetchBookWishlist() {
       try {
         const response = await axios.get(
-          // "https://my-book-project.herokuapp.com/books"
-          "http://localhost:3001/books"
+          "https://my-book-project.herokuapp.com/books"
         );
         setSavedBooks(response.data);
         setIsLoading(false);
